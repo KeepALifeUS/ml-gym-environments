@@ -1,43 +1,32 @@
 # ML Gym Environments for Crypto Trading
 
-Enterprise-grade OpenAI Gym environments для cryptocurrency trading с Context7 patterns и comprehensive sentiment analysis integration.
+Enterprise-grade OpenAI Gym environments for cryptocurrency trading with enterprise patterns and comprehensive sentiment analysis integration.
 
-## 🎯 Overview
+## Overview
 
-This package implements sophisticated trading environments для reinforcement learning agents, featuring:
+This package implements sophisticated trading environments for reinforcement learning agents, featuring:
 
-- **Multi-Asset Trading**: Support для multiple cryptocurrency pairs
+- **Multi-Asset Trading**: Support for multiple cryptocurrency pairs
 - **Sentiment Analysis**: Integration of market sentiment from multiple sources
-- **Market Microstructure**: Realistic order book simulation и market impact
-- **Advanced Risk Management**: Comprehensive risk metrics и position sizing
-- **Enterprise Patterns**: Production-ready logging, monitoring, и error handling
-- **Context7 Compatibility**: Modern cloud-native architectural patterns
+- **Market Microstructure**: Realistic order book simulation and market impact
+- **Advanced Risk Management**: Comprehensive risk metrics and position sizing
+- **Enterprise Patterns**: Production-ready logging, monitoring, and error handling
+- **Cloud-Native Compatibility**: Modern cloud-native architectural patterns
 
-## 🚀 ML-Framework-1345 Implementation
-
-This package directly addresses Jira task **ML-Framework-1345 - Implement Sentiment-Based Trading Signals** by providing:
-
-1. **Sentiment-Enhanced Observations**: Multi-source sentiment data integration
-2. **Regime-Aware Environments**: Market regime detection и adaptation
-3. **Advanced Reward Functions**: Sentiment-aligned reward mechanisms
-4. **Production-Ready Architecture**: Enterprise-grade implementation
-
-## 📦 Installation
+## Installation
 
 ```bash
-# From ML-Framework project root
+# From project root
 cd packages/ml-gym-environments
 pip install -e .
 
 # Or install dependencies directly
 pip install gymnasium numpy pandas scipy
-
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ```
-
 ml-gym-environments/
 ├── src/
 │   ├── environments/          # Core trading environments
@@ -61,10 +50,9 @@ ml-gym-environments/
 │   │   └── indicators.py             # Technical indicators
 │   └── wrappers/              # Environment wrappers
 └── tests/                     # Comprehensive test suite
-
 ```
 
-## 🎮 Quick Start
+## Quick Start
 
 ### Basic Environment
 
@@ -90,7 +78,6 @@ for step in range(100):
         break
 
 env.close()
-
 ```
 
 ### Sentiment-Enhanced Environment
@@ -98,18 +85,17 @@ env.close()
 ```python
 from ml_gym_environments import create_sentiment_crypto_env
 
-# Create environment с sentiment analysis
+# Create environment with sentiment analysis
 env = create_sentiment_crypto_env(
     assets=["BTC", "ETH"],
     sentiment_sources=["twitter", "reddit", "news", "fear_greed_index"],
     sentiment_weight=0.2
 )
 
-# Environment includes sentiment в observations
+# Environment includes sentiment in observations
 observation, info = env.reset()
 print(f"Observation shape: {observation.shape}")
 print(f"Market info: {env.get_market_info()}")
-
 ```
 
 ### Advanced Configuration
@@ -150,16 +136,15 @@ trading_config = CryptoTradingConfig(
 )
 
 env = CryptoTradingEnvironment(trading_config)
-
 ```
 
-## 🎯 Key Features
+## Key Features
 
 ### 1. Multi-Modal Observations
 
 The environments provide rich, multi-modal observations including:
 
-- **Price Data**: OHLCV data с configurable history length
+- **Price Data**: OHLCV data with configurable history length
 - **Technical Indicators**: 20+ technical indicators
 - **Sentiment Data**: Multi-source sentiment analysis
 - **Market Microstructure**: Order book depth, bid-ask spreads
@@ -171,7 +156,7 @@ The environments provide rich, multi-modal observations including:
 Multiple action space modes:
 
 - **Discrete**: Simple buy/sell/hold actions
-- **Continuous**: Position sizing с risk constraints
+- **Continuous**: Position sizing with risk constraints
 - **Portfolio**: Target portfolio allocation
 - **Orders**: Advanced order management (limit, stop, etc.)
 
@@ -198,22 +183,21 @@ sharpe_reward = create_sharpe_reward(
     lookback_window=50,
     target_sharpe=1.5
 )
-
 ```
 
 ### 4. Market Simulation
 
-Realistic market simulation с:
+Realistic market simulation with:
 
 - **Market Impact**: Sophisticated impact models
-- **Slippage**: Volatility и size-based slippage
+- **Slippage**: Volatility and size-based slippage
 - **Liquidity**: Dynamic liquidity modeling
 - **Latency**: Execution latency simulation
 - **Partial Fills**: Realistic order execution
 
 ### 5. Enterprise Logging
 
-Structured logging для production:
+Structured logging for production:
 
 ```python
 from ml_gym_environments import create_environment_logger
@@ -232,12 +216,11 @@ logger.log_trade_execution(
 # Performance metrics
 logger.log_performance_metric("sharpe_ratio", 1.25)
 
-# Export для analysis
+# Export for analysis
 logger.export_events("trading_events.json")
-
 ```
 
-## 📊 Observation Space
+## Observation Space
 
 The observation space includes multiple feature categories:
 
@@ -250,7 +233,7 @@ The observation space includes multiple feature categories:
 | **Portfolio**      | Positions, balance    | Current portfolio state      |
 | **Regime**         | Bull/Bear/Volatile    | Market regime classification |
 
-## ⚡ Performance Features
+## Performance Features
 
 - **Async Support**: Real-time trading compatibility
 - **Vectorized Environments**: Parallel execution
@@ -258,7 +241,7 @@ The observation space includes multiple feature categories:
 - **Configurable**: Extensive configuration options
 - **Monitoring**: Built-in performance monitoring
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -269,12 +252,11 @@ pytest tests/test_environments.py -v
 pytest tests/test_rewards.py -v
 pytest tests/test_simulation.py -v
 
-# Run с coverage
+# Run with coverage
 pytest --cov=ml_gym_environments tests/
-
 ```
 
-## 📈 Example Training Loop
+## Example Training Loop
 
 ```python
 import gymnasium as gym
@@ -300,15 +282,14 @@ for _ in range(1000):
     if terminated or truncated:
         print(f"Episode finished. Portfolio value: ${info['portfolio_value']:,.2f}")
         obs, _ = env.reset()
-
 ```
 
-## 🔧 Configuration Options
+## Configuration Options
 
 ### Environment Configuration
 
 - **Assets**: List of crypto assets to trade
-- **Data Source**: Historical, synthetic, или live data
+- **Data Source**: Historical, synthetic, or live data
 - **Market Features**: Order books, sentiment, technical indicators
 - **Risk Management**: Position limits, stop losses, drawdown limits
 
@@ -321,12 +302,12 @@ for _ in range(1000):
 
 ### Action Configuration
 
-- **Action Mode**: Discrete, continuous, или portfolio
+- **Action Mode**: Discrete, continuous, or portfolio
 - **Position Sizing**: Fixed, Kelly, volatility-based
 - **Order Types**: Market, limit, stop orders
 - **Risk Constraints**: Maximum position sizes, leverage
 
-## 🚀 Advanced Usage
+## Advanced Usage
 
 ### Custom Reward Functions
 
@@ -340,10 +321,9 @@ class CustomReward:
         volume_penalty = trade_info.get("total_fees", 0) * 0.5
         return profit - volume_penalty
 
-# Use с environment
+# Use with environment
 reward_fn = CustomReward()
-# Integrate в training loop...
-
+# Integrate in training loop...
 ```
 
 ### Multi-Environment Training
@@ -358,53 +338,52 @@ def make_env():
 
 envs = AsyncVectorEnv([make_env for _ in range(4)])
 
-# Train с vectorized environments
+# Train with vectorized environments
 # ... training code ...
-
 ```
 
-## 📚 Documentation
+## Documentation
 
 - **[API Reference](docs/api_reference.md)**: Complete API documentation
-- **[Examples](examples/)**: Usage examples и tutorials
+- **[Examples](examples/)**: Usage examples and tutorials
 - **[Configuration Guide](docs/configuration.md)**: Detailed configuration options
 - **[Architecture](docs/architecture.md)**: System architecture overview
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create feature branch: `git checkout -b feature/amazing-feature`
-3. Make changes и add tests
+3. Make changes and add tests
 4. Run tests: `pytest tests/`
 5. Commit: `git commit -m 'Add amazing feature'`
 6. Push: `git push origin feature/amazing-feature`
 7. Create Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🏷️ Version
+## Version
 
 Current version: **1.0.0**
 
-## 🔗 Related Packages
+## Related Packages
 
-- **[ml-ppo](../ml-ppo/)**: PPO implementation для crypto trading
+- **[ml-ppo](../ml-ppo/)**: PPO implementation for crypto trading
 - **[trading-engine](../trading-engine/)**: Core trading engine
 - **[risk-manager](../risk-manager/)**: Risk management system
-- **[common](../common/)**: Shared utilities и patterns
+- **[common](../common/)**: Shared utilities and patterns
 
-## 📞 Support
+## Support
 
-For support и questions:
+For support and questions:
 
-- Create an issue в the repository
+- Create an issue in the repository
 - Check the [documentation](docs/)
 - Review existing [examples](examples/)
 
 ---
 
-**Built с ❤️ для Crypto Trading Bot v5.0**
+**Built for Enterprise Crypto Trading Applications**
 
-_Enterprise-grade trading environments powered by Context7 patterns_
+_Enterprise-grade trading environments powered by cloud-native patterns_
