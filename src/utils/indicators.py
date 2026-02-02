@@ -1,6 +1,6 @@
 """
-Technical Indicators для Trading Environments
-enterprise patterns для high-performance indicator calculation
+Technical Indicators for Trading Environments
+enterprise patterns for high-performance indicator calculation
 
 Comprehensive technical analysis indicators:
 - Moving averages (SMA, EMA, WMA)
@@ -21,7 +21,7 @@ import logging
 
 @dataclass
 class IndicatorConfig:
-    """Configuration для technical indicators"""
+    """Configuration for technical indicators"""
     
     # Moving averages
     sma_periods: List[int] = field(default_factory=lambda: [5, 10, 20, 50])
@@ -55,7 +55,7 @@ class TechnicalIndicators:
     """
     High-performance technical indicators calculator
     
-    Optimized для real-time calculation с caching и vectorization
+    Optimized for real-time calculation with caching and vectorization
     """
     
     def __init__(self, indicators: List[str], config: Optional[IndicatorConfig] = None):
@@ -110,8 +110,8 @@ class TechnicalIndicators:
         Args:
             prices: Price series (typically close prices)
             volumes: Volume series (optional)
-            high: High prices для range-based indicators (optional)
-            low: Low prices для range-based indicators (optional)
+            high: High prices for range-based indicators (optional)
+            low: Low prices for range-based indicators (optional)
             
         Returns:
             Dictionary of indicator values
@@ -125,7 +125,7 @@ class TechnicalIndicators:
         if volumes:
             self.volume_history.extend(volumes[-50:])
         
-        # Use provided data или history
+        # Use provided data or history
         price_series = prices if len(prices) >= 50 else list(self.price_history)
         volume_series = volumes if volumes else list(self.volume_history)
         
@@ -200,11 +200,11 @@ class TechnicalIndicators:
         # Calculate price changes
         changes = np.diff(prices)
         
-        # Separate gains и losses
+        # Separate gains and losses
         gains = np.where(changes > 0, changes, 0)
         losses = np.where(changes < 0, -changes, 0)
         
-        # Calculate average gains и losses
+        # Calculate average gains and losses
         if len(gains) >= period:
             avg_gain = np.mean(gains[-period:])
             avg_loss = np.mean(losses[-period:])
@@ -233,7 +233,7 @@ class TechnicalIndicators:
         macd_line = ema_fast - ema_slow
         
         # Signal line (EMA of MACD line) - simplified calculation
-        signal_line = macd_line * 0.8  # Approximation для real-time calculation
+        signal_line = macd_line * 0.8  # Approximation for real-time calculation
         
         # Histogram
         histogram = macd_line - signal_line

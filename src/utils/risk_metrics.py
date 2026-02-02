@@ -1,10 +1,10 @@
 """
 Risk Metrics Calculation Utilities
-enterprise patterns для comprehensive risk analysis
+enterprise patterns for comprehensive risk analysis
 
 Advanced risk calculation functions:
 - Sharpe, Sortino, Calmar ratios
-- VaR и Expected Shortfall
+- VaR and Expected Shortfall
 - Maximum Drawdown calculation
 - Volatility metrics
 - Position sizing algorithms
@@ -90,7 +90,7 @@ class RiskCalculator:
         sortino = self._calculate_sortino_ratio(returns, risk_free_rate)
         calmar = self._calculate_calmar_ratio(returns)
         
-        # VaR и Expected Shortfall
+        # VaR and Expected Shortfall
         var_95 = self._calculate_var(returns, 0.05)
         var_99 = self._calculate_var(returns, 0.01)
         es_95 = self._calculate_expected_shortfall(returns, 0.05)
@@ -220,7 +220,7 @@ class RiskCalculator:
         benchmark_returns: np.ndarray,
         risk_free_rate: float
     ) -> Tuple[float, float]:
-        """Calculate beta и alpha"""
+        """Calculate beta and alpha"""
         
         if len(returns) != len(benchmark_returns) or len(returns) < 2:
             return 0.0, 0.0
@@ -242,7 +242,7 @@ class RiskCalculator:
         return float(beta), float(alpha)
     
     def _calculate_drawdown_metrics(self, returns: np.ndarray) -> Tuple[float, float]:
-        """Calculate maximum и current drawdown"""
+        """Calculate maximum and current drawdown"""
         
         if len(returns) < 2:
             return 0.0, 0.0
@@ -361,7 +361,7 @@ class PositionSizer:
     ) -> float:
         """Kelly criterion position sizing"""
         
-        # Use defaults если parameters not provided
+        # Use defaults if parameters not provided
         win_rate = win_rate or 0.5
         avg_win = avg_win or 0.02
         avg_loss = avg_loss or 0.02
@@ -374,7 +374,7 @@ class PositionSizer:
         
         kelly_fraction = (b * p - q) / b
         
-        # Apply signal strength и risk limits
+        # Apply signal strength and risk limits
         kelly_fraction *= abs(signal_strength)
         kelly_fraction = np.clip(kelly_fraction, 0, self.max_risk * 2)  # Max 2x normal risk
         

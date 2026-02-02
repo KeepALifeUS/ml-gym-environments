@@ -1,8 +1,8 @@
 """
 Sharpe Ratio Based Reward Functions
-enterprise patterns для risk-adjusted performance optimization
+enterprise patterns for risk-adjusted performance optimization
 
-Advanced reward functions based on Sharpe ratio и related risk-adjusted metrics:
+Advanced reward functions based on Sharpe ratio and related risk-adjusted metrics:
 - Rolling Sharpe ratio rewards
 - Information ratio rewards
 - Sortino ratio rewards
@@ -23,10 +23,10 @@ from ..utils.risk_metrics import (
 
 @dataclass
 class SharpeRewardConfig:
-    """Configuration для Sharpe-based rewards"""
+    """Configuration for Sharpe-based rewards"""
     
     # Sharpe calculation parameters
-    lookback_window: int = 50           # Number of periods для calculation
+    lookback_window: int = 50           # Number of periods for calculation
     risk_free_rate: float = 0.02        # Annual risk-free rate
     target_sharpe: float = 1.0          # Target Sharpe ratio
     
@@ -78,7 +78,7 @@ class SharpeReward:
         else:
             self.benchmark_returns = None
         
-        # Step counter для update frequency
+        # Step counter for update frequency
         self.step_count = 0
         self.last_sharpe = 0.0
     
@@ -171,11 +171,11 @@ class SharpeReward:
         else:
             reward = base_reward * (1 - np.tanh(abs(sharpe_ratio)))
         
-        # Bonus для consistently high Sharpe
+        # Bonus for consistently high Sharpe
         if len(self.sharpe_history) >= 5:
             recent_sharpes = self.sharpe_history[-5:]
             if all(s > self.config.target_sharpe for s in recent_sharpes):
-                reward *= 1.2  # 20% bonus для consistency
+                reward *= 1.2  # 20% bonus for consistency
         
         return reward
     
@@ -304,7 +304,7 @@ class CalmarReward(SharpeReward):
 
 class AdaptiveSharpeReward(SharpeReward):
     """
-    Adaptive Sharpe reward с dynamic parameters
+    Adaptive Sharpe reward with dynamic parameters
     """
     
     def __init__(self, config: SharpeRewardConfig):
@@ -351,7 +351,7 @@ class AdaptiveSharpeReward(SharpeReward):
         return reward
     
     def _sharpe_to_reward(self, sharpe_ratio: float) -> float:
-        """Use dynamic target в reward calculation"""
+        """Use dynamic target in reward calculation"""
         
         # Use dynamic target instead of static one
         excess_sharpe = sharpe_ratio - self.dynamic_target

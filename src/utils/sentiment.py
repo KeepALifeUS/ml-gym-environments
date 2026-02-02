@@ -1,6 +1,6 @@
 """
-Sentiment Analysis Integration для Trading Environments
-enterprise patterns для comprehensive market sentiment
+Sentiment Analysis Integration for Trading Environments
+enterprise patterns for comprehensive market sentiment
 
 Advanced sentiment analysis integration:
 - Multi-source sentiment aggregation  
@@ -39,7 +39,7 @@ class SentimentScore:
     """Individual sentiment score"""
     source: SentimentSource
     asset: str
-    score: float          # Normalized [-1, 1] или [0, 100] depending on source
+    score: float          # Normalized [-1, 1] or [0, 100] depending on source
     confidence: float     # [0, 1] confidence in the score
     timestamp: float
     raw_data: Optional[Dict[str, Any]] = None
@@ -48,7 +48,7 @@ class SentimentScore:
 
 @dataclass
 class SentimentConfig:
-    """Configuration для sentiment analysis"""
+    """Configuration for sentiment analysis"""
     
     # Data sources
     enabled_sources: List[SentimentSource] = field(default_factory=lambda: [
@@ -91,9 +91,9 @@ class SentimentConfig:
 
 class SentimentAnalyzer:
     """
-    Advanced sentiment analyzer для crypto trading
+    Advanced sentiment analyzer for crypto trading
     
-    Aggregates sentiment from multiple sources и generates trading signals
+    Aggregates sentiment from multiple sources and generates trading signals
     """
     
     def __init__(
@@ -137,10 +137,10 @@ class SentimentAnalyzer:
         # Update tracking
         self.last_updates = {source: 0.0 for source in self.config.enabled_sources}
         
-        # Synthetic data mode для development/testing
+        # Synthetic data mode for development/testing
         self.synthetic_mode = True  # Will be overridden in production
         
-        self.logger.info(f"Sentiment analyzer initialized для {len(assets)} assets с {len(self.config.enabled_sources)} sources")
+        self.logger.info(f"Sentiment analyzer initialized for {len(assets)} assets with {len(self.config.enabled_sources)} sources")
     
     def get_current_sentiment(self) -> Dict[str, Dict[str, float]]:
         """Get current aggregated sentiment scores"""
@@ -200,7 +200,7 @@ class SentimentAnalyzer:
                 task = asyncio.create_task(self._async_update_source_sentiment(source))
                 update_tasks.append((source, task))
         
-        # Wait для all updates
+        # Wait for all updates
         for source, task in update_tasks:
             try:
                 await task
@@ -220,12 +220,12 @@ class SentimentAnalyzer:
                     if sentiment_data:
                         self._store_sentiment_score(asset, source, sentiment_data)
                 except Exception as e:
-                    self.logger.warning(f"Error getting {source.value} sentiment для {asset}: {e}")
+                    self.logger.warning(f"Error getting {source.value} sentiment for {asset}: {e}")
     
     async def _async_update_source_sentiment(self, source: SentimentSource) -> None:
         """Async update sentiment from specific source"""
         
-        # Run в executor to avoid blocking
+        # Run in executor to avoid blocking
         loop = asyncio.get_event_loop()
         await loop.run_in_executor(None, self._update_source_sentiment, source)
     
@@ -253,7 +253,7 @@ class SentimentAnalyzer:
             "raw_data": sentiment_data
         }
         
-        # Store в history если enabled
+        # Store in history if enabled
         if self.config.enable_sentiment_history:
             self.sentiment_history[asset].append({
                 "source": source.value,
@@ -300,7 +300,7 @@ class SentimentAnalyzer:
         else:
             overall_sentiment = 0.0
         
-        # Apply smoothing если enabled
+        # Apply smoothing if enabled
         if self.config.enable_sentiment_signals:
             overall_sentiment = self._apply_sentiment_smoothing(asset, overall_sentiment)
             self.sentiment_signals[asset] = overall_sentiment
@@ -352,7 +352,7 @@ class SentimentAnalyzer:
         
         return freq_map.get(source, 300)  # Default 5 minutes
     
-    # Source-specific handlers (synthetic data для development)
+    # Source-specific handlers (synthetic data for development)
     def _get_twitter_sentiment(self, asset: str) -> Optional[Dict[str, Any]]:
         """Get Twitter sentiment (synthetic data)"""
         
@@ -538,7 +538,7 @@ class SentimentAnalyzer:
         avg_confidence = np.mean(confidences) if confidences else 0.0
         
         # Adjust based on sentiment extremity
-        extremity_bonus = min(abs(sentiment_score), 0.2)  # Up to 20% bonus для extreme sentiment
+        extremity_bonus = min(abs(sentiment_score), 0.2)  # Up to 20% bonus for extreme sentiment
         
         return min(avg_confidence + extremity_bonus, 1.0)
     
@@ -553,7 +553,7 @@ class SentimentAnalyzer:
             "source_reliability": {}
         }
         
-        # Calculate average sentiment по asset
+        # Calculate average sentiment by asset
         for asset in self.assets:
             if self.sentiment_history[asset]:
                 scores = [entry["score"] for entry in self.sentiment_history[asset]]

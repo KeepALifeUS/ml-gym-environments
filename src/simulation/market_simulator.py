@@ -1,8 +1,8 @@
 """
 Market Simulation Engine
-enterprise patterns для realistic market dynamics
+enterprise patterns for realistic market dynamics
 
-Advanced market simulation с sophisticated features:
+Advanced market simulation with sophisticated features:
 - Market impact modeling
 - Order matching engine
 - Liquidity modeling
@@ -42,7 +42,7 @@ class LiquidityRegime(Enum):
 
 @dataclass
 class MarketSimulatorConfig:
-    """Configuration для market simulator"""
+    """Configuration for market simulator"""
     
     # Market impact parameters
     impact_model: MarketImpactModel = MarketImpactModel.SQRT
@@ -72,9 +72,9 @@ class MarketSimulatorConfig:
     
     # Market regime effects
     regime_impact_multipliers: Dict[str, float] = field(default_factory=lambda: {
-        "bull": 0.8,      # Lower impact в bull markets
-        "bear": 1.3,      # Higher impact в bear markets
-        "volatile": 1.5,  # Much higher impact в volatile markets
+        "bull": 0.8,      # Lower impact in bull markets
+        "bear": 1.3,      # Higher impact in bear markets
+        "volatile": 1.5,  # Much higher impact in volatile markets
         "crisis": 2.0     # Extreme impact during crisis
     })
     
@@ -102,7 +102,7 @@ class OrderExecution:
 
 class MarketSimulator:
     """
-    Advanced market simulator с realistic trading dynamics
+    Advanced market simulator with realistic trading dynamics
     
     Simulates sophisticated market effects:
     - Market impact from large orders
@@ -169,7 +169,7 @@ class MarketSimulator:
         market_regime: str = "normal"
     ) -> Dict[str, Any]:
         """
-        Execute list of trading orders с realistic market simulation
+        Execute list of trading orders with realistic market simulation
         
         Returns comprehensive execution results
         """
@@ -252,21 +252,21 @@ class MarketSimulator:
         
         current_price = current_prices.get(asset, 0.0)
         if current_price <= 0:
-            self.logger.warning(f"Invalid price для {asset}: {current_price}")
+            self.logger.warning(f"Invalid price for {asset}: {current_price}")
             return False
         
-        # Position validation для sell orders
+        # Position validation for sell orders
         if side == "sell":
             current_position = portfolio.get(asset, 0.0)
             if current_position < quantity:
-                self.logger.warning(f"Insufficient position для sell: {current_position} < {quantity}")
+                self.logger.warning(f"Insufficient position for sell: {current_position} < {quantity}")
                 return False
         
-        # Balance validation для buy orders
+        # Balance validation for buy orders
         elif side == "buy":
-            estimated_cost = quantity * current_price * 1.1  # 10% buffer для fees/slippage
+            estimated_cost = quantity * current_price * 1.1  # 10% buffer for fees/slippage
             if balance < estimated_cost:
-                self.logger.warning(f"Insufficient balance для buy: {balance} < {estimated_cost}")
+                self.logger.warning(f"Insufficient balance for buy: {balance} < {estimated_cost}")
                 return False
         
         return True
@@ -277,7 +277,7 @@ class MarketSimulator:
         current_prices: Dict[str, float],
         order_books: Optional[Dict[str, Dict]] = None
     ) -> OrderExecution:
-        """Execute single order с market simulation"""
+        """Execute single order with market simulation"""
         
         start_time = time.time()
         
@@ -316,7 +316,7 @@ class MarketSimulator:
         else:
             execution_price = current_price
         
-        # Determine fill quantity (может быть partial)
+        # Determine fill quantity (can be partial)
         fill_quantity = self._determine_fill_quantity(asset, quantity)
         
         # Calculate fees
@@ -346,10 +346,10 @@ class MarketSimulator:
         
         base_coefficient = self.config.base_impact_coefficient
         
-        # Adjust для regime
+        # Adjust for regime
         regime_multiplier = self.config.regime_impact_multipliers.get(self.current_regime, 1.0)
         
-        # Adjust для liquidity
+        # Adjust for liquidity
         current_liquidity = self.current_liquidity[asset]
         liquidity_factor = max(self.config.min_liquidity_factor, current_liquidity / 1000.0)
         
@@ -459,7 +459,7 @@ class MarketSimulator:
         base_latency = self.config.base_latency_ms
         variance = self.config.latency_variance
         
-        # Log-normal distribution для realistic latency
+        # Log-normal distribution for realistic latency
         latency = np.random.lognormal(np.log(base_latency), variance)
         
         return float(latency)

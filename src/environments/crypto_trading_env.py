@@ -1,12 +1,12 @@
 """
-Advanced Crypto Trading Environment с Sentiment Analysis
-enterprise patterns для production trading systems
+Advanced Crypto Trading Environment with Sentiment Analysis
+enterprise patterns for production trading systems
 
 Features:
-- Multi-asset trading simulation с realistic market dynamics
+- Multi-asset trading simulation with realistic market dynamics
 - Sentiment-based trading signals integration
-- Order book simulation и market microstructure
-- Advanced risk management с circuit breakers
+- Order book simulation and market microstructure
+- Advanced risk management with circuit breakers
 - Real-time data streaming support
 - Multi-exchange integration ready
 - ML-powered market regime detection
@@ -94,10 +94,10 @@ class CryptoTradingConfig(BaseTradingConfig):
 
 class CryptoTradingEnvironment(BaseTradingEnvironment):
     """
-    Advanced crypto trading environment с sentiment analysis
+    Advanced crypto trading environment with sentiment analysis
     
-    Implements sophisticated trading simulation для crypto markets
-    с enterprise-grade patterns и  best practices
+    Implements sophisticated trading simulation for crypto markets
+    with enterprise-grade patterns and  best practices
     """
     
     def __init__(
@@ -179,7 +179,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
         )
     
     def _setup_spaces(self) -> None:
-        """Setup observation и action spaces"""
+        """Setup observation and action spaces"""
         
         # Create observation space
         self.obs_space_builder = CryptoObservationSpace(self.crypto_config)
@@ -296,7 +296,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
             # Get new market data
             market_data = self.data_stream.get_next_tick()
             
-            # Update prices и volumes
+            # Update prices and volumes
             price_updates = {}
             for asset in self.crypto_config.assets:
                 old_price = self.current_prices[asset]
@@ -316,7 +316,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
             # Update technical indicators
             self._update_indicators()
             
-            # Update sentiment (с lag если configured)
+            # Update sentiment (with lag if configured)
             if hasattr(self, 'sentiment_analyzer') and self.current_step % 10 == 0:
                 self._update_sentiment()
             
@@ -383,7 +383,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
         
         try:
             if len(self.price_history) >= self.crypto_config.regime_detection_window:
-                # Prepare data для regime detection
+                # Prepare data for regime detection
                 regime_data = self._prepare_regime_data()
                 
                 # Detect regime
@@ -436,7 +436,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
         return regime_data
     
     def _get_observation(self) -> np.ndarray:
-        """Get current observation with sentiment и regime data"""
+        """Get current observation with sentiment and regime data"""
         
         return self.obs_space_builder.build_observation(
             prices=self.current_prices,
@@ -463,7 +463,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
             # Parse action
             parsed_action = self.action_space_builder.parse_action(action)
             
-            # Execute trades через market simulator
+            # Execute trades through market simulator
             execution_result = self.market_simulator.execute_trades(
                 orders=parsed_action["orders"],
                 current_prices=self.current_prices,
@@ -472,7 +472,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
                 order_books=getattr(self, 'order_books', {})
             )
             
-            # Update positions и balance
+            # Update positions and balance
             self.balance = execution_result["new_balance"]
             self.positions.update(execution_result["position_changes"])
             
@@ -509,7 +509,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
             }
     
     def _calculate_reward(self, action_result: Dict[str, Any]) -> float:
-        """Calculate reward с sentiment и regime factors"""
+        """Calculate reward with sentiment and regime factors"""
         
         # Base portfolio return reward
         if len(self.portfolio_history) > 0:
@@ -544,7 +544,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
             diversification_bonus = 0.1 * (active_positions - 1)
             reward += diversification_bonus
         
-        # Liquidity provision bonus (если order book trading)
+        # Liquidity provision bonus (if order book trading)
         if hasattr(self, 'order_book_simulator'):
             liquidity_bonus = self._calculate_liquidity_bonus(action_result)
             reward += liquidity_bonus
@@ -567,7 +567,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
             if asset in self.sentiment_scores:
                 sentiment = self.sentiment_scores[asset]["overall"]
                 
-                # Reward alignment с positive sentiment
+                # Reward alignment with positive sentiment
                 if side == "buy" and sentiment > 0:
                     sentiment_bonus += sentiment * quantity * 0.1
                 elif side == "sell" and sentiment < 0:
@@ -592,21 +592,21 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
         
         # Reward regime-appropriate strategies
         if self.market_regime == MarketRegime.BULL:
-            # Reward long positions в bull market
+            # Reward long positions in bull market
             long_value = sum(order["quantity"] * order["price"] 
                            for order in action_result["filled_orders"] 
                            if order["side"] == "buy")
             regime_bonus += (long_value / max(total_trade_value, 1)) * 0.2
             
         elif self.market_regime == MarketRegime.BEAR:
-            # Reward defensive positions в bear market
+            # Reward defensive positions in bear market
             short_value = sum(order["quantity"] * order["price"] 
                             for order in action_result["filled_orders"] 
                             if order["side"] == "sell")
             regime_bonus += (short_value / max(total_trade_value, 1)) * 0.2
             
         elif self.market_regime == MarketRegime.VOLATILE:
-            # Reward active trading в volatile markets
+            # Reward active trading in volatile markets
             if len(action_result["filled_orders"]) > 2:
                 regime_bonus += 0.1
                 
@@ -615,15 +615,15 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
     def _calculate_liquidity_bonus(self, action_result: Dict[str, Any]) -> float:
         """Calculate liquidity provision bonus"""
         
-        # Simple liquidity bonus для market making
+        # Simple liquidity bonus for market making
         liquidity_bonus = 0.0
         
         for order in action_result.get("filled_orders", []):
             if order.get("order_type") == "limit":
-                # Small bonus для limit orders (providing liquidity)
+                # Small bonus for limit orders (providing liquidity)
                 liquidity_bonus += 0.01
             elif order.get("order_type") == "market":
-                # Small penalty для market orders (taking liquidity)
+                # Small penalty for market orders (taking liquidity)
                 liquidity_bonus -= 0.005
         
         return liquidity_bonus
@@ -632,7 +632,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
         self, 
         action: Union[np.ndarray, int, List[float]]
     ) -> Tuple[np.ndarray, float, bool, bool, Dict[str, Any]]:
-        """Async version для real-time trading"""
+        """Async version for real-time trading"""
         
         # Update sentiment asynchronously
         if hasattr(self, 'sentiment_analyzer'):
@@ -688,7 +688,7 @@ def create_sentiment_crypto_env(
     sentiment_sources: List[str] = None,
     **kwargs
 ) -> CryptoTradingEnvironment:
-    """Create crypto environment с sentiment analysis"""
+    """Create crypto environment with sentiment analysis"""
     
     config = CryptoTradingConfig(
         assets=assets or ["BTC", "ETH", "BNB"],

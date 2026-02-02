@@ -1,9 +1,9 @@
 """
 Portfolio Management Utilities
-enterprise patterns для sophisticated portfolio management
+enterprise patterns for sophisticated portfolio management
 
 Advanced portfolio management features:
-- Position tracking и validation
+- Position tracking and validation
 - Risk-based position sizing
 - Portfolio rebalancing algorithms
 - Performance attribution analysis
@@ -73,12 +73,12 @@ class PortfolioConfig:
     # Risk limits
     max_position_weight: float = 0.2        # Max 20% per position
     max_sector_weight: float = 0.4          # Max 40% per sector
-    max_correlation_exposure: float = 0.6   # Max 60% в correlated assets
+    max_correlation_exposure: float = 0.6   # Max 60% in correlated assets
     max_leverage: float = 1.0               # Max leverage ratio
     max_drawdown_limit: float = 0.15        # Max 15% drawdown
     
     # Rebalancing
-    rebalancing_threshold: float = 0.05     # 5% threshold для rebalancing
+    rebalancing_threshold: float = 0.05     # 5% threshold for rebalancing
     rebalancing_frequency: int = 24         # Hours between rebalancing checks
     min_trade_size: float = 10.0            # Minimum trade size ($)
     
@@ -106,7 +106,7 @@ class PortfolioManager:
     """
     Enterprise-grade portfolio management system
     
-    Manages portfolio state, positions, risk metrics, и optimization
+    Manages portfolio state, positions, risk metrics, and optimization
     """
     
     def __init__(
@@ -144,7 +144,7 @@ class PortfolioManager:
         self.alerts_triggered = []
         self.portfolio_status = PortfolioStatus.NORMAL
         
-        self.logger.info(f"Portfolio manager initialized с balance ${initial_balance:,.2f}")
+        self.logger.info(f"Portfolio manager initialized with balance ${initial_balance:,.2f}")
     
     def update_position(
         self,
@@ -214,14 +214,14 @@ class PortfolioManager:
         current_prices: Dict[str, float],
         timestamp: Optional[float] = None
     ) -> None:
-        """Update с current market prices"""
+        """Update with current market prices"""
         
         timestamp = timestamp or time.time()
         
         # Calculate current portfolio value
         portfolio_value = self.calculate_portfolio_value(current_prices)
         
-        # Store в history
+        # Store in history
         self.portfolio_value_history.append({
             "timestamp": timestamp,
             "portfolio_value": portfolio_value,
@@ -229,11 +229,11 @@ class PortfolioManager:
             "prices": current_prices.copy()
         })
         
-        # Check для alerts
+        # Check for alerts
         if self.config.enable_real_time_monitoring:
             self._check_alerts(current_prices, portfolio_value)
         
-        # Check для rebalancing
+        # Check for rebalancing
         if self._should_rebalance(timestamp):
             self._suggest_rebalancing(current_prices)
     
@@ -430,7 +430,7 @@ class PortfolioManager:
     def _calculate_realized_pnl(self) -> float:
         """Calculate realized P&L from closed positions"""
         
-        # Simplified calculation - would need more sophisticated tracking в production
+        # Simplified calculation - would need more sophisticated tracking in production
         realized = 0.0
         
         for trade in self.trade_history:
@@ -472,7 +472,7 @@ class PortfolioManager:
             return current_price < entry_price
     
     def _check_alerts(self, current_prices: Dict[str, float], portfolio_value: float) -> None:
-        """Check для risk alerts"""
+        """Check for risk alerts"""
         
         current_time = time.time()
         

@@ -1,12 +1,12 @@
 """
-Action Spaces для Crypto Trading Environments
-enterprise patterns для sophisticated trading actions
+Action Spaces for Crypto Trading Environments
+enterprise patterns for sophisticated trading actions
 
 Features:
 - Multi-asset trading actions
-- Discrete и continuous action spaces
+- Discrete and continuous action spaces
 - Order type support (market/limit/stop)
-- Position sizing с risk constraints
+- Position sizing with risk constraints
 - Portfolio rebalancing actions
 - Advanced order management
 """
@@ -23,7 +23,7 @@ from ..utils.risk_metrics import PositionSizer
 
 class ActionMode(Enum):
     """Action space modes"""
-    DISCRETE = "discrete"           # Buy/Sell/Hold для each asset
+    DISCRETE = "discrete"           # Buy/Sell/Hold for each asset
     CONTINUOUS = "continuous"       # Continuous position sizing
     MIXED = "mixed"                # Discrete actions + continuous sizing
     ORDERS = "orders"              # Advanced order management
@@ -41,7 +41,7 @@ class OrderType(Enum):
 
 @dataclass
 class ActionConfig:
-    """Configuration для action spaces"""
+    """Configuration for action spaces"""
     
     # Action mode
     action_mode: ActionMode = ActionMode.CONTINUOUS
@@ -49,7 +49,7 @@ class ActionConfig:
     # Position sizing
     max_position_size: float = 1.0      # Maximum position per asset
     min_position_size: float = 0.001    # Minimum position size
-    position_granularity: int = 100     # Granularity для discrete sizing
+    position_granularity: int = 100     # Granularity for discrete sizing
     
     # Portfolio constraints
     max_portfolio_weight: float = 0.3   # Maximum weight per asset
@@ -60,7 +60,7 @@ class ActionConfig:
     # Order management
     enable_limit_orders: bool = True
     enable_stop_orders: bool = True
-    price_offset_range: float = 0.05    # Max price offset для limit orders
+    price_offset_range: float = 0.05    # Max price offset for limit orders
     
     # Risk management
     enable_position_sizing: bool = True
@@ -78,7 +78,7 @@ class ActionConfig:
 
 
 class DiscreteActionSpace:
-    """Discrete action space для crypto trading"""
+    """Discrete action space for crypto trading"""
     
     def __init__(self, config: ActionConfig, assets: List[str]):
         self.config = config
@@ -148,14 +148,14 @@ class DiscreteActionSpace:
 
 
 class ContinuousActionSpace:
-    """Continuous action space для sophisticated position sizing"""
+    """Continuous action space for sophisticated position sizing"""
     
     def __init__(self, config: ActionConfig, assets: List[str]):
         self.config = config
         self.assets = assets
         self.num_assets = len(assets)
         
-        # Position sizer для risk management
+        # Position sizer for risk management
         if config.enable_position_sizing:
             self.position_sizer = PositionSizer(
                 method=config.position_sizing_method,
@@ -170,10 +170,10 @@ class ContinuousActionSpace:
         
         dim = 0
         
-        # Base position targets для each asset
+        # Base position targets for each asset
         dim += self.num_assets
         
-        # Optional price offsets для limit orders
+        # Optional price offsets for limit orders
         if self.config.enable_limit_orders:
             dim += self.num_assets  # Price offsets
         
@@ -190,7 +190,7 @@ class ContinuousActionSpace:
         low = np.full(self.action_dim, -self.config.max_position_size, dtype=np.float32)
         high = np.full(self.action_dim, self.config.max_position_size, dtype=np.float32)
         
-        # Adjust bounds для price offsets и stops
+        # Adjust bounds for price offsets and stops
         if self.config.enable_limit_orders or self.config.enable_stop_orders:
             offset_start = self.num_assets
             offset_end = offset_start + self.num_assets
@@ -240,7 +240,7 @@ class ContinuousActionSpace:
             stop_levels = action[action_idx:action_idx + self.num_assets]
             action_idx += self.num_assets
         
-        # Create orders для each asset
+        # Create orders for each asset
         for i, asset in enumerate(self.assets):
             target_position = position_targets[i]
             current_position = current_positions.get(asset, 0.0) if current_positions else 0.0
@@ -314,8 +314,8 @@ class PortfolioActionSpace:
     def create_space(self) -> spaces.Box:
         """Create portfolio allocation space"""
         
-        # Portfolio weights: [0, 1] для each asset
-        # Will be normalized to sum to 1 в parse_action
+        # Portfolio weights: [0, 1] for each asset
+        # Will be normalized to sum to 1 in parse_action
         low = np.zeros(self.num_assets, dtype=np.float32)
         high = np.ones(self.num_assets, dtype=np.float32)
         
@@ -379,7 +379,7 @@ class PortfolioActionSpace:
 
 
 class CryptoActionSpace:
-    """Main action space builder для crypto trading"""
+    """Main action space builder for crypto trading"""
     
     def __init__(self, config: ActionConfig, assets: List[str]):
         self.config = config
@@ -452,7 +452,7 @@ class MultiTimeframeActionSpace:
         self.num_assets = len(assets)
         self.num_timeframes = len(timeframes)
         
-        # Create separate action space для each timeframe
+        # Create separate action space for each timeframe
         self.timeframe_actions = {}
         for tf in timeframes:
             tf_config = ActionConfig(**config.__dict__)
@@ -522,8 +522,8 @@ class PairTradingActionSpace:
             pair_signal = action[i * 2]      # [-1, 1] Long/short pair
             hedge_ratio = action[i * 2 + 1]  # [-1, 1] Hedge ratio
             
-            if abs(pair_signal) > 0.1:  # Threshold для action
-                # Long first asset, short second asset (или наоборот)
+            if abs(pair_signal) > 0.1:  # Threshold for action
+                # Long first asset, short second asset (or наоборот)
                 if pair_signal > 0:
                     orders.append({
                         "asset": asset1,

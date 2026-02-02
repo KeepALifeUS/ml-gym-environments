@@ -1,12 +1,12 @@
 """
-Structured Logging для Trading Environments
-enterprise patterns для production logging
+Structured Logging for Trading Environments
+enterprise patterns for production logging
 
 Features:
 - Structured JSON logging
 - Trading event tracking
 - Performance monitoring integration
-- Error tracking и alerting
+- Error tracking and alerting
 - Compliance logging
 """
 
@@ -59,9 +59,9 @@ class TradingEvent:
 
 class StructuredLogger:
     """
-    Advanced structured logger для trading environments
+    Advanced structured logger for trading environments
     
-    Provides comprehensive logging с trading-specific features
+    Provides comprehensive logging with trading-specific features
     """
     
     def __init__(
@@ -236,7 +236,7 @@ class StructuredLogger:
             }
         )
         
-        # Log as warning или error based on severity
+        # Log as warning or error based on severity
         if risk_level in ["HIGH", "CRITICAL"]:
             self.error(f"Risk alert: {risk_type} = {risk_value:.4f} exceeds threshold {threshold:.4f}")
         else:
@@ -338,7 +338,7 @@ class StructuredLogger:
 
 
 class StructuredFormatter(logging.Formatter):
-    """Custom formatter для structured logs"""
+    """Custom formatter for structured logs"""
     
     def format(self, record: logging.LogRecord) -> str:
         """Format log record as JSON"""
@@ -369,7 +369,7 @@ def create_environment_logger(
     environment_id: str,
     level: LogLevel = LogLevel.INFO
 ) -> StructuredLogger:
-    """Create logger для trading environment"""
+    """Create logger for trading environment"""
     
     return StructuredLogger(
         name=f"trading_env.{environment_id}",
@@ -383,7 +383,7 @@ def create_agent_logger(
     agent_id: str,
     level: LogLevel = LogLevel.INFO
 ) -> StructuredLogger:
-    """Create logger для trading agent"""
+    """Create logger for trading agent"""
     
     return StructuredLogger(
         name=f"trading_agent.{agent_id}",

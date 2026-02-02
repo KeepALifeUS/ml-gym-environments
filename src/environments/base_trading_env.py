@@ -1,13 +1,13 @@
 """
-Base Trading Environment для Crypto Trading Bot v5.0
-enterprise patterns для production-ready trading environments
+Base Trading Environment for Crypto Trading Bot v5.0
+enterprise patterns for production-ready trading environments
 
-Основа для всех торговых сред с enterprise-grade функциональностью:
-- Async support для real-time trading
-- Comprehensive logging и monitoring
-- Fault tolerance и graceful degradation
+Foundation for всех trading сред with enterprise-grade functionality:
+- Async support for real-time trading
+- Comprehensive logging and monitoring
+- Fault tolerance and graceful degradation
 - Performance optimization
-- Type safety и validation
+- Type safety and validation
 """
 
 import asyncio
@@ -31,7 +31,7 @@ from ..utils.portfolio import PortfolioManager
 
 @dataclass
 class BaseTradingConfig:
-    """Base configuration для всех торговых сред"""
+    """Base configuration for всех trading сред"""
     
     # Environment parameters
     max_steps: int = 1000
@@ -70,11 +70,11 @@ class BaseTradingConfig:
 
 class BaseTradingEnvironment(gym.Env, ABC):
     """
-    Базовая торговая среда с enterprise patterns
+    Base торговая среда with enterprise patterns
     
-    Обеспечивает:
+    Ensures:
     - Production-ready error handling
-    - Comprehensive monitoring и logging
+    - Comprehensive monitoring and logging
     - Performance optimization
     - Async support
     - Type safety
@@ -152,7 +152,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
     
     @abstractmethod
     def _setup_spaces(self) -> None:
-        """Setup observation и action spaces"""
+        """Setup observation and action spaces"""
         pass
     
     @abstractmethod
@@ -186,7 +186,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
             try:
                 super().reset(seed=seed)
                 
-                # Log episode end если не первый reset
+                # Log episode end if not первый reset
                 if hasattr(self, 'current_step') and self.current_step > 0:
                     self._log_episode_end()
                 
@@ -332,7 +332,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
             raise ValueError("Max drawdown must be between 0 and 1")
     
     def _validate_observation(self, observation: np.ndarray) -> None:
-        """Validate observation shape и values"""
+        """Validate observation shape and values"""
         
         if observation.shape != self.observation_space.shape:
             raise ValueError(
@@ -362,7 +362,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
         return action
     
     def _get_safe_observation(self) -> np.ndarray:
-        """Get safe observation в случае error"""
+        """Get safe observation in случае error"""
         
         try:
             return self._get_observation()
@@ -526,7 +526,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
         })
     
     def _render_human(self) -> None:
-        """Render для human viewing"""
+        """Render for human viewing"""
         
         print(f"\n=== Trading Environment - Step {self.current_step} ===")
         print(f"Portfolio Value: ${self.portfolio_value:,.2f}")
@@ -552,7 +552,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
         return np.zeros((400, 600, 3), dtype=np.uint8)
     
     def _render_json(self) -> Dict[str, Any]:
-        """Render as JSON для API integration"""
+        """Render as JSON for API integration"""
         
         return {
             "step": self.current_step,
@@ -572,7 +572,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
 class AsyncBaseTradingEnvironment(BaseTradingEnvironment):
     """
     Async version of base trading environment
-    для real-time trading integration
+    for real-time trading integration
     """
     
     async def async_step(
@@ -581,7 +581,7 @@ class AsyncBaseTradingEnvironment(BaseTradingEnvironment):
     ) -> Tuple[np.ndarray, float, bool, bool, Dict[str, Any]]:
         """Async version of step method"""
         
-        # Run в executor to avoid blocking
+        # Run in executor to avoid blocking
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, self.step, action)
     

@@ -1,8 +1,8 @@
 """
 Profit-Based Reward Functions
-enterprise patterns для robust profit optimization
+enterprise patterns for robust profit optimization
 
-Simple но effective profit-based rewards с various modifications:
+Simple but effective profit-based rewards with various modifications:
 - Raw profit/loss rewards
 - Risk-adjusted profit rewards
 - Logarithmic profit rewards
@@ -19,7 +19,7 @@ from ..utils.risk_metrics import calculate_sharpe_ratio, calculate_max_drawdown
 
 @dataclass
 class ProfitRewardConfig:
-    """Configuration для profit-based rewards"""
+    """Configuration for profit-based rewards"""
     
     # Base reward scaling
     reward_scale: float = 1.0
@@ -51,14 +51,14 @@ class ProfitReward:
     """
     Simple profit-based reward function
     
-    Rewards based on portfolio value changes с optional risk adjustments
+    Rewards based on portfolio value changes with optional risk adjustments
     """
     
     def __init__(self, config: ProfitRewardConfig):
         self.config = config
         self.logger = logging.getLogger(__name__)
         
-        # Track reward history для analysis
+        # Track reward history for analysis
         self.reward_history = []
         self.portfolio_history = []
     
@@ -134,7 +134,7 @@ class ProfitReward:
         elif reward > self.config.profit_threshold:
             return reward
         else:
-            return reward * 0.1  # Small rewards для neutral performance
+            return reward * 0.1  # Small rewards for neutral performance
     
     def _calculate_risk_penalty(
         self,
@@ -197,7 +197,7 @@ class RiskAdjustedProfitReward(ProfitReward):
     """
     Risk-adjusted profit reward
     
-    Incorporates Sharpe ratio и other risk metrics для better long-term performance
+    Incorporates Sharpe ratio and other risk metrics for better long-term performance
     """
     
     def __init__(self, config: ProfitRewardConfig, lookback_window: int = 50):
@@ -250,7 +250,7 @@ class CompoundReward:
     
     def __init__(self, reward_configs: List[Tuple[ProfitReward, float]]):
         """
-        Initialize с weighted list of reward functions
+        Initialize with weighted list of reward functions
         
         Args:
             reward_configs: List of (reward_function, weight) tuples
@@ -336,7 +336,7 @@ def create_risk_adjusted_profit_reward(
 
 
 def create_conservative_profit_reward() -> ProfitReward:
-    """Create conservative profit reward с heavy risk penalties"""
+    """Create conservative profit reward with heavy risk penalties"""
     
     config = ProfitRewardConfig(
         profit_scale=50.0,
@@ -352,7 +352,7 @@ def create_conservative_profit_reward() -> ProfitReward:
 
 
 def create_aggressive_profit_reward() -> ProfitReward:
-    """Create aggressive profit reward с minimal penalties"""
+    """Create aggressive profit reward with minimal penalties"""
     
     config = ProfitRewardConfig(
         profit_scale=200.0,

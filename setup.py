@@ -1,6 +1,6 @@
 """
-Setup configuration для ML Gym Environments package
-enterprise patterns для crypto trading environments
+Setup configuration for ML Gym Environments package
+enterprise patterns for crypto trading environments
 """
 
 from setuptools import setup, find_packages
@@ -57,7 +57,7 @@ setup(
     version="1.0.0",
     author="Crypto Trading Bot v5.0 Team",
     author_email="dev@cryptotradingbot.com",
-    description="Enterprise-grade OpenAI Gym environments для cryptocurrency trading с sentiment analysis",
+    description="Enterprise-grade OpenAI Gym environments for cryptocurrency trading with sentiment analysis",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/cryptotradingbot/ml-gym-environments",

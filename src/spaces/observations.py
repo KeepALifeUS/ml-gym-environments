@@ -1,11 +1,11 @@
 """
-Observation Spaces для Crypto Trading Environments
-enterprise patterns для sophisticated feature engineering
+Observation Spaces for Crypto Trading Environments
+enterprise patterns for sophisticated feature engineering
 
 Features:
 - Multi-modal observations (price, volume, sentiment, microstructure)
 - Configurable feature engineering pipeline
-- Real-time normalization и scaling
+- Real-time normalization and scaling
 - Memory-efficient implementation
 - Type-safe observation construction
 """
@@ -24,7 +24,7 @@ from ..utils.normalization import RunningMeanStd, MinMaxScaler
 
 class ObservationMode(Enum):
     """Observation composition modes"""
-    BASIC = "basic"              # Price + volume только
+    BASIC = "basic"              # Price + volume only
     TECHNICAL = "technical"      # + Technical indicators
     SENTIMENT = "sentiment"      # + Sentiment data
     MICROSTRUCTURE = "micro"     # + Order book data
@@ -33,7 +33,7 @@ class ObservationMode(Enum):
 
 @dataclass
 class ObservationConfig:
-    """Configuration для observation space"""
+    """Configuration for observation space"""
     
     # Basic features
     include_price: bool = True
@@ -89,10 +89,10 @@ class ObservationConfig:
 
 class CryptoObservationSpace:
     """
-    Sophisticated observation space builder для crypto trading
+    Sophisticated observation space builder for crypto trading
     
-    Создает комплексные observations с multiple modalities:
-    - Price/Volume data с history
+    Создает комплексные observations with multiple modalities:
+    - Price/Volume data with history
     - Technical indicators
     - Sentiment analysis data
     - Market microstructure
@@ -124,7 +124,7 @@ class CryptoObservationSpace:
                 self.normalizers[f"{asset}_price"] = RunningMeanStd()
                 self.normalizers[f"{asset}_volume"] = RunningMeanStd()
                 
-                # Normalizers для technical indicators
+                # Normalizers for technical indicators
                 if self.config.include_technical_indicators:
                     for indicator in self.config.technical_indicators:
                         self.normalizers[f"{asset}_{indicator}"] = RunningMeanStd()
@@ -184,7 +184,7 @@ class CryptoObservationSpace:
         
         # Order book features
         if self.config.include_order_book:
-            # Bid/ask prices и volumes для each depth level
+            # Bid/ask prices and volumes for each depth level
             orderbook_dim = self.num_assets * self.config.order_book_depth * 4  # bid_price, bid_vol, ask_price, ask_vol
             self.feature_map["order_book"] = (current_idx, current_idx + orderbook_dim)
             self.observation_dim += orderbook_dim
@@ -227,11 +227,11 @@ class CryptoObservationSpace:
     def create_space(self) -> spaces.Box:
         """Create gymnasium observation space"""
         
-        # For most financial features, allow negative values но limit extremes
+        # For most financial features, allow negative values but limit extremes
         low = -np.inf * np.ones(self.observation_dim, dtype=np.float32)
         high = np.inf * np.ones(self.observation_dim, dtype=np.float32)
         
-        # Set reasonable bounds для some features
+        # Set reasonable bounds for some features
         if "sentiment" in self.feature_map:
             start, end = self.feature_map["sentiment"]
             low[start:end] = -1.0   # Sentiment typically [-1, 1]
@@ -336,7 +336,7 @@ class CryptoObservationSpace:
         for asset in self.assets:
             asset_prices = []
             
-            # Extract price series для asset
+            # Extract price series for asset
             for price_dict in recent_history:
                 asset_prices.append(price_dict.get(asset, 0.0))
             
@@ -410,7 +410,7 @@ class CryptoObservationSpace:
             for source in self.config.sentiment_sources:
                 sentiment_value = asset_sentiment.get(source, 0.0)
                 
-                # Sentiment scores обычно уже normalized [-1, 1] или [0, 100]
+                # Sentiment scores обычно already normalized [-1, 1] or [0, 100]
                 if source == "fear_greed":
                     sentiment_value = (sentiment_value - 50.0) / 50.0  # Normalize to [-1, 1]
                 
@@ -429,7 +429,7 @@ class CryptoObservationSpace:
             bids = order_book.get("bids", [])
             asks = order_book.get("asks", [])
             
-            # Add bid/ask data для each depth level
+            # Add bid/ask data for each depth level
             for level in range(self.config.order_book_depth):
                 if level < len(bids):
                     bid_price, bid_volume = bids[level]
@@ -548,7 +548,7 @@ class CryptoObservationSpace:
         return value
     
     def get_feature_names(self) -> List[str]:
-        """Get names of all features в observation"""
+        """Get names of all features in observation"""
         
         feature_names = []
         
@@ -576,7 +576,7 @@ class CryptoObservationSpace:
                     feature_names.append(f"{asset}_{indicator}")
         
         # Add other feature names...
-        # (Implementation continues для all other feature types)
+        # (Implementation continues for all other feature types)
         
         return feature_names
     

@@ -1,14 +1,14 @@
 """
 Test suite for ML Gym Trading Environments
-enterprise patterns для comprehensive testing
+enterprise patterns for comprehensive testing
 
 Tests cover:
-- Environment initialization и configuration
+- Environment initialization and configuration
 - Observation space generation
 - Action space functionality
 - Reward calculation
 - Market simulation
-- Error handling и edge cases
+- Error handling and edge cases
 """
 
 import pytest
@@ -33,11 +33,11 @@ from utils.logger import StructuredLogger, EventType
 
 
 class TestCryptoTradingEnvironment:
-    """Test suite для CryptoTradingEnvironment"""
+    """Test suite for CryptoTradingEnvironment"""
     
     @pytest.fixture
     def basic_config(self):
-        """Basic configuration для testing"""
+        """Basic configuration for testing"""
         return CryptoTradingConfig(
             assets=["BTC", "ETH"],
             initial_balance=10000.0,
@@ -104,7 +104,7 @@ class TestCryptoTradingEnvironment:
         valid_action = environment.action_space.sample()
         assert environment.action_space.contains(valid_action)
         
-        # Test step с valid action
+        # Test step with valid action
         obs, reward, terminated, truncated, info = environment.step(valid_action)
         assert obs is not None
     
@@ -192,15 +192,15 @@ class TestCryptoTradingEnvironment:
         # Should have order book simulator
         assert hasattr(env, 'order_book_simulator')
         
-        # Execute action и check order book data
+        # Execute action and check order book data
         action = env.action_space.sample()
         env.step(action)
     
     def test_error_handling(self, environment):
-        """Test error handling и edge cases"""
+        """Test error handling and edge cases"""
         environment.reset()
         
-        # Test с invalid action (should be handled gracefully)
+        # Test with invalid action (should be handled gracefully)
         if hasattr(environment.action_space, 'n'):
             # Discrete action space
             invalid_action = -1
@@ -266,7 +266,7 @@ class TestCryptoTradingEnvironment:
 
 
 class TestObservationSpace:
-    """Test suite для observation space"""
+    """Test suite for observation space"""
     
     def test_observation_space_creation(self):
         """Test observation space creation"""
@@ -309,7 +309,7 @@ class TestObservationSpace:
 
 
 class TestActionSpace:
-    """Test suite для action space"""
+    """Test suite for action space"""
     
     def test_continuous_action_space(self):
         """Test continuous action space"""
@@ -352,7 +352,7 @@ class TestActionSpace:
 
 
 class TestRewardFunctions:
-    """Test suite для reward functions"""
+    """Test suite for reward functions"""
     
     def test_profit_reward(self):
         """Test profit-based reward function"""
@@ -381,7 +381,7 @@ class TestRewardFunctions:
         assert not np.isinf(reward)
         
         # Profitable trade should give positive reward
-        assert reward > 0  # 10% profit should be positive even с penalties
+        assert reward > 0  # 10% profit should be positive even with penalties
     
     def test_reward_statistics(self):
         """Test reward statistics"""
@@ -403,7 +403,7 @@ class TestRewardFunctions:
 
 
 class TestUtilities:
-    """Test suite для utility functions"""
+    """Test suite for utility functions"""
     
     def test_structured_logger(self):
         """Test structured logger"""
@@ -441,7 +441,7 @@ class TestUtilities:
         # Set context
         logger.set_context(environment_id="test_env_001", episode=1)
         
-        logger.info("Test message с context")
+        logger.info("Test message with context")
         
         # Clear context
         logger.clear_context()
@@ -452,7 +452,7 @@ class TestUtilities:
 
 # Integration tests
 class TestIntegration:
-    """Integration tests для complete workflow"""
+    """Integration tests for complete workflow"""
     
     def test_full_trading_episode(self):
         """Test complete trading episode"""
