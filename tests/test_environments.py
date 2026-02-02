@@ -1,6 +1,6 @@
 """
 Test suite for ML Gym Trading Environments
-Context7 Enterprise Patterns для comprehensive testing
+enterprise patterns для comprehensive testing
 
 Tests cover:
 - Environment initialization и configuration

@@ -1,6 +1,6 @@
 """
 Portfolio Management Utilities
-Context7 Enterprise Patterns для sophisticated portfolio management
+enterprise patterns для sophisticated portfolio management
 
 Advanced portfolio management features:
 - Position tracking и validation

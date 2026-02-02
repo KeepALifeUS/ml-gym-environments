@@ -1,6 +1,6 @@
 """
 Sentiment Analysis Integration для Trading Environments
-Context7 Enterprise Patterns для comprehensive market sentiment
+enterprise patterns для comprehensive market sentiment
 
 Advanced sentiment analysis integration:
 - Multi-source sentiment aggregation  

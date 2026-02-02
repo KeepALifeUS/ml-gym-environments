@@ -1,6 +1,6 @@
 """
 Observation Spaces для Crypto Trading Environments
-Context7 Enterprise Patterns для sophisticated feature engineering
+enterprise patterns для sophisticated feature engineering
 
 Features:
 - Multi-modal observations (price, volume, sentiment, microstructure)

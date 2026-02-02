@@ -1,6 +1,6 @@
 """
 Market Simulation Engine
-Context7 Enterprise Patterns для realistic market dynamics
+enterprise patterns для realistic market dynamics
 
 Advanced market simulation с sophisticated features:
 - Market impact modeling

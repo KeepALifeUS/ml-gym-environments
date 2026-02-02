@@ -1,6 +1,6 @@
 """
 Technical Indicators для Trading Environments
-Context7 Enterprise Patterns для high-performance indicator calculation
+enterprise patterns для high-performance indicator calculation
 
 Comprehensive technical analysis indicators:
 - Moving averages (SMA, EMA, WMA)

@@ -1,6 +1,6 @@
 """
 Risk Metrics Calculation Utilities
-Context7 Enterprise Patterns для comprehensive risk analysis
+enterprise patterns для comprehensive risk analysis
 
 Advanced risk calculation functions:
 - Sharpe, Sortino, Calmar ratios

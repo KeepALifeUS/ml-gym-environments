@@ -1,6 +1,6 @@
 """
 Setup configuration для ML Gym Environments package
-Context7 Enterprise Patterns для crypto trading environments
+enterprise patterns для crypto trading environments
 """
 
 from setuptools import setup, find_packages
@@ -109,7 +109,7 @@ setup(
         "cryptocurrency", "trading", "reinforcement-learning", 
         "gym", "gymnasium", "sentiment-analysis", "fintech",
         "machine-learning", "ai", "quantitative-finance",
-        "algorithmic-trading", "context7", "enterprise"
+        "algorithmic-trading", "ml-framework", "enterprise"
     ],
     # Platform specific requirements
     extras_require_platform={

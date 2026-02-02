@@ -1,6 +1,6 @@
 """
 Advanced Crypto Trading Environment с Sentiment Analysis
-Context7 Enterprise Patterns для production trading systems
+enterprise patterns для production trading systems
 
 Features:
 - Multi-asset trading simulation с realistic market dynamics
@@ -97,7 +97,7 @@ class CryptoTradingEnvironment(BaseTradingEnvironment):
     Advanced crypto trading environment с sentiment analysis
     
     Implements sophisticated trading simulation для crypto markets
-    с enterprise-grade patterns и Context7 best practices
+    с enterprise-grade patterns и  best practices
     """
     
     def __init__(

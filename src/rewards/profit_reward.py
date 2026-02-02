@@ -1,6 +1,6 @@
 """
 Profit-Based Reward Functions
-Context7 Enterprise Patterns для robust profit optimization
+enterprise patterns для robust profit optimization
 
 Simple но effective profit-based rewards с various modifications:
 - Raw profit/loss rewards

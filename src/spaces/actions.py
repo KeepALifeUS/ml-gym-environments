@@ -1,6 +1,6 @@
 """
 Action Spaces для Crypto Trading Environments
-Context7 Enterprise Patterns для sophisticated trading actions
+enterprise patterns для sophisticated trading actions
 
 Features:
 - Multi-asset trading actions

@@ -1,6 +1,6 @@
 """
 Sharpe Ratio Based Reward Functions
-Context7 Enterprise Patterns для risk-adjusted performance optimization
+enterprise patterns для risk-adjusted performance optimization
 
 Advanced reward functions based on Sharpe ratio и related risk-adjusted metrics:
 - Rolling Sharpe ratio rewards

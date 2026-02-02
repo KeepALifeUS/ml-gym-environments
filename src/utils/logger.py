@@ -1,6 +1,6 @@
 """
 Structured Logging для Trading Environments
-Context7 Enterprise Patterns для production logging
+enterprise patterns для production logging
 
 Features:
 - Structured JSON logging

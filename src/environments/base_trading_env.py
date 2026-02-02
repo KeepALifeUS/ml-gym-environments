@@ -1,6 +1,6 @@
 """
 Base Trading Environment для Crypto Trading Bot v5.0
-Context7 Enterprise Patterns для production-ready trading environments
+enterprise patterns для production-ready trading environments
 
 Основа для всех торговых сред с enterprise-grade функциональностью:
 - Async support для real-time trading
@@ -22,7 +22,7 @@ import gymnasium as gym
 from gymnasium import spaces
 import warnings
 
-# Context7 enterprise imports
+#  enterprise imports
 from ..utils.logger import StructuredLogger, TradingEvent
 from ..utils.performance import PerformanceMonitor
 from ..utils.risk_metrics import RiskCalculator
@@ -70,7 +70,7 @@ class BaseTradingConfig:
 
 class BaseTradingEnvironment(gym.Env, ABC):
     """
-    Базовая торговая среда с Context7 enterprise patterns
+    Базовая торговая среда с enterprise patterns
     
     Обеспечивает:
     - Production-ready error handling
