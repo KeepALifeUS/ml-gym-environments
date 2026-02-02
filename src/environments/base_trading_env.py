@@ -2,7 +2,7 @@
 Base Trading Environment for Crypto Trading Bot v5.0
 enterprise patterns for production-ready trading environments
 
-Foundation for всех trading сред with enterprise-grade functionality:
+Foundation for all trading environments with enterprise-grade functionality:
 - Async support for real-time trading
 - Comprehensive logging and monitoring
 - Fault tolerance and graceful degradation
@@ -31,7 +31,7 @@ from ..utils.portfolio import PortfolioManager
 
 @dataclass
 class BaseTradingConfig:
-    """Base configuration for всех trading сред"""
+    """Base configuration for all trading environments"""
     
     # Environment parameters
     max_steps: int = 1000
@@ -70,7 +70,7 @@ class BaseTradingConfig:
 
 class BaseTradingEnvironment(gym.Env, ABC):
     """
-    Base торговая среда with enterprise patterns
+    Base trading environment with enterprise patterns
     
     Ensures:
     - Production-ready error handling
@@ -186,7 +186,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
             try:
                 super().reset(seed=seed)
                 
-                # Log episode end if not первый reset
+                # Log episode end if not first reset
                 if hasattr(self, 'current_step') and self.current_step > 0:
                     self._log_episode_end()
                 
@@ -362,7 +362,7 @@ class BaseTradingEnvironment(gym.Env, ABC):
         return action
     
     def _get_safe_observation(self) -> np.ndarray:
-        """Get safe observation in случае error"""
+        """Get safe observation in case of error"""
         
         try:
             return self._get_observation()

@@ -91,7 +91,7 @@ class CryptoObservationSpace:
     """
     Sophisticated observation space builder for crypto trading
     
-    Создает комплексные observations with multiple modalities:
+    Creates comprehensive observations with multiple modalities:
     - Price/Volume data with history
     - Technical indicators
     - Sentiment analysis data
@@ -410,7 +410,7 @@ class CryptoObservationSpace:
             for source in self.config.sentiment_sources:
                 sentiment_value = asset_sentiment.get(source, 0.0)
                 
-                # Sentiment scores обычно already normalized [-1, 1] or [0, 100]
+                # Sentiment scores are typically already normalized [-1, 1] or [0, 100]
                 if source == "fear_greed":
                     sentiment_value = (sentiment_value - 50.0) / 50.0  # Normalize to [-1, 1]
                 

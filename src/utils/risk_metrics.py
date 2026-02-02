@@ -367,7 +367,7 @@ class PositionSizer:
         avg_loss = avg_loss or 0.02
         
         # Kelly formula: f = (bp - q) / b
-        # где b = avg_win/avg_loss, p = win_rate, q = 1 - win_rate
+        # where b = avg_win/avg_loss, p = win_rate, q = 1 - win_rate
         b = avg_win / avg_loss if avg_loss > 0 else 1.0
         p = win_rate
         q = 1 - win_rate

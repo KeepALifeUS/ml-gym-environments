@@ -523,7 +523,7 @@ class PairTradingActionSpace:
             hedge_ratio = action[i * 2 + 1]  # [-1, 1] Hedge ratio
             
             if abs(pair_signal) > 0.1:  # Threshold for action
-                # Long first asset, short second asset (or наоборот)
+                # Long first asset, short second asset (or vice versa)
                 if pair_signal > 0:
                     orders.append({
                         "asset": asset1,
